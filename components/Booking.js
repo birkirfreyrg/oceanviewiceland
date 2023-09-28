@@ -4,6 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import Wrapper from "./Wrapper";
 import Info from "./Info";
+import axios from "axios";
+import { mongooseConnect } from "../lib/mongoose";
 
 export default function Booking() {
   const [checkInDate, setCheckInDate] = useState(null);
@@ -15,8 +17,6 @@ export default function Booking() {
     { value: "2", label: "2 Guests" },
     { value: "3", label: "3 Guests" },
     { value: "4", label: "4 Guests" },
-    { value: "5", label: "5 Guests" },
-    { value: "6", label: "6 Guests" },
   ];
 
   const handleCheckInChange = (date) => {
@@ -30,6 +30,28 @@ export default function Booking() {
   const handleGuestsChange = (selectedOption) => {
     setGuests(selectedOption);
   };
+
+  async function ConfirmDates(checkInDate, checkOutDate, numberOfGuests) {
+    console.log(checkInDate);
+    console.log(checkOutDate);
+    console.log(numberOfGuests);
+
+    try {
+      const response = await axios.post("/api/adddates", {
+        checkInDate,
+        checkOutDate,
+        numberOfGuests,
+      });
+      if (response.data.url) {
+        window.location = response.data.url;
+      } else {
+        // If there's no URL in the response, manually navigate to "/"
+        window.location.href = "/book";
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   return (
     <Wrapper>
@@ -71,7 +93,12 @@ export default function Booking() {
               placeholder="Select guests"
             />
           </div>
-          <button className="bg-black text-white px-4 py-2 rounded font-custom">
+          <button
+            onClick={() =>
+              ConfirmDates(checkInDate, checkOutDate, guests.value)
+            }
+            className="bg-black text-white px-4 py-2 rounded font-custom"
+          >
             Book Now
           </button>
         </div>

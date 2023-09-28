@@ -7,7 +7,7 @@ export default function Info() {
       <h3 className="text-black font-thin text-l">
         <p>4 guests &middot; 1 bedroom &middot; 2 beds &middot; 1 bath</p>
       </h3>
-      <hr className="border-0 h-1 w-11/12 bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 my-2" />
+      <hr className="border-0 h-0.5 w-11/12 bg-gray-200 my-2" />
       <div className="flex">
         <div className=" flex h-12 w-12 items-center justify-center">
           <svg
@@ -55,7 +55,7 @@ export default function Info() {
           </p>
         </div>
       </div>
-      <hr className="border-0 h-1 w-11/12 bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 my-2" />
+      <hr className="border-0 h-0.5 w-11/12 bg-gray-200 my-2" />
       <div className="mt-2">
         <h1 className="text-xl font-bold mb-1 ">About this space</h1>{" "}
         <p>
