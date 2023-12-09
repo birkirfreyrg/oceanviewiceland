@@ -7,10 +7,11 @@ import Info from "./Info";
 import axios from "axios";
 import { mongooseConnect } from "../lib/mongoose";
 
-export default function Booking() {
+export default function Booking(props) {
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [guests, setGuests] = useState(null);
+  const [currentPage, setCurrentPage] = useState(null);
 
   const guestOptions = [
     { value: "1", label: "1 Guest" },
@@ -36,6 +37,10 @@ export default function Booking() {
     console.log(checkOutDate);
     console.log(numberOfGuests);
 
+    props.setCurrentPage("bookingPage");
+    props.setGuests(numberOfGuests);
+
+    /*
     try {
       const response = await axios.post("/api/adddates", {
         checkInDate,
@@ -51,6 +56,7 @@ export default function Booking() {
     } catch (error) {
       console.error("Error:", error);
     }
+    */
   }
 
   return (
