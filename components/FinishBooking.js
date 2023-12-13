@@ -10,7 +10,6 @@ export default function FinishBooking(props) {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
-  const [data, setData] = useState([]);
 
   async function goToPayment() {
     const response = await axios.post("/api/checkout", {
@@ -36,10 +35,13 @@ export default function FinishBooking(props) {
         console.error("Error fetching data:", error);
       }
     }
-
+    
     fetchData();
   }, []);
+*/
+
   function displayMonth(monthNumber) {
+    monthNumber = monthNumber + 1;
     const months = [
       "Jan",
       "Feb",
@@ -64,7 +66,6 @@ export default function FinishBooking(props) {
     }
   }
 
-  */
   return (
     <Wrapper>
       <div className="flex gap-4">
@@ -77,15 +78,15 @@ export default function FinishBooking(props) {
           </h3>
           <h4 className="text-l font-semibold text-gray-800 mb-1">Dates</h4>
           <div className="text-l text-gray-800 mb-4 font-thin">
-            {data && data[0] && data[0].checkInDate && data[0].checkOutDate ? (
+            {
               <>
-                {displayMonth(data[0].checkInDate.slice(5, 7))}
-                {" " + data[0].checkInDate.slice(8, 10)}
-                {" - " + data[0].checkOutDate.slice(8, 10)}
+                {displayMonth(props.checkInDate.getMonth())}
+                {console.log(props.checkInDate.getMonth())}
+                {" " + props.checkInDate.getDate()}
+                {" - " + props.checkOutDate.getDate()}
+                {", " + props.checkOutDate.getFullYear()}
               </>
-            ) : (
-              "Loading..."
-            )}
+            }
           </div>
           <h4 className="text-l font-semibold text-gray-800 mb-1">Guests</h4>
           <div className="text-l text-gray-800 mb-4 font-thin">

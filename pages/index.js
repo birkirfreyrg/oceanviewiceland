@@ -3,10 +3,12 @@ import Booking from "../components/Booking";
 import Layout from "../components/Layout";
 import Suite from "../components/Suite";
 import FinishBooking from "../components/FinishBooking";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [guests, setGuests] = useState(null);
-  const [currentPage, setCurrentPage] = useState("home");
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -15,17 +17,26 @@ export default function Home() {
           <>
             <Suite />
             <Booking
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
               guests={guests}
               setGuests={setGuests}
+              checkInDate={checkInDate}
+              setCheckInDate={setCheckInDate}
+              checkOutDate={checkOutDate}
+              setCheckOutDate={setCheckOutDate}
             />
           </>
         );
       case "bookingPage":
         return (
           <>
-            <FinishBooking guests={guests} setGuests={setGuests} />
+            <FinishBooking
+              guests={guests}
+              setGuests={setGuests}
+              checkInDate={checkInDate}
+              setCheckInDate={setCheckInDate}
+              checkOutDate={checkOutDate}
+              setCheckOutDate={setCheckOutDate}
+            />
           </>
         );
       default:
@@ -35,11 +46,16 @@ export default function Home() {
 
   return (
     <Layout>
-      <div>
-        <button onClick={() => setCurrentPage("home")}>Home</button>
-        <button onClick={() => setCurrentPage("bookingPage")}>About</button>
-        {renderPage()}
-      </div>
+      <Suite />
+      <Booking
+        guests={guests}
+        setGuests={setGuests}
+        checkInDate={checkInDate}
+        setCheckInDate={setCheckInDate}
+        checkOutDate={checkOutDate}
+        setCheckOutDate={setCheckOutDate}
+      />
+      <Link to={`/targetPage/${dataToSend}`}>Go to Target Page</Link>
     </Layout>
   );
 }

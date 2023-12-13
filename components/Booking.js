@@ -11,7 +11,6 @@ export default function Booking(props) {
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [guests, setGuests] = useState(null);
-  const [currentPage, setCurrentPage] = useState(null);
 
   const guestOptions = [
     { value: "1", label: "1 Guest" },
@@ -37,8 +36,9 @@ export default function Booking(props) {
     console.log(checkOutDate);
     console.log(numberOfGuests);
 
-    props.setCurrentPage("bookingPage");
     props.setGuests(numberOfGuests);
+    props.setCheckInDate(checkInDate);
+    props.setCheckOutDate(checkOutDate);
 
     /*
     try {
