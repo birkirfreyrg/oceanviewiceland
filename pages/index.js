@@ -3,7 +3,7 @@ import Booking from "../components/Booking";
 import Layout from "../components/Layout";
 import Suite from "../components/Suite";
 import FinishBooking from "../components/FinishBooking";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export default function Home() {
   const [guests, setGuests] = useState(null);
@@ -45,7 +45,7 @@ export default function Home() {
   };
 
   return (
-    <Layout>
+    <>
       <Suite />
       <Booking
         guests={guests}
@@ -55,7 +55,14 @@ export default function Home() {
         checkOutDate={checkOutDate}
         setCheckOutDate={setCheckOutDate}
       />
-      <Link to={`/targetPage/${dataToSend}`}>Go to Target Page</Link>
-    </Layout>
+      <ul>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/book">About Us</Link>
+        </li>
+      </ul>
+    </>
   );
 }
