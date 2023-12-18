@@ -2,14 +2,23 @@ import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import Wrapper from "./Wrapper";
 import axios from "axios";
+import { useContext } from "react";
+import { MyContext } from "../contexts/MyContext";
 
-export default function FinishBooking(props) {
+export default function FinishBooking() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
+  const { sharedData } = useContext(MyContext);
+  const checkInDate = sharedData[0];
+  const checkOutDate = sharedData[1];
+  const guests = sharedData[2];
+  const time_difference = checkOutDate.getTime() - checkInDate.getTime();
+  const days_difference = time_difference / (1000 * 60 * 60 * 24);
+  const price = days_difference * 16900;
 
   async function goToPayment() {
     const response = await axios.post("/api/checkout", {
@@ -25,21 +34,6 @@ export default function FinishBooking(props) {
       window.location = response.data.url;
     }
   }
-  /*
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get("/api/fetchData");
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    
-    fetchData();
-  }, []);
-*/
-
   function displayMonth(monthNumber) {
     monthNumber = monthNumber + 1;
     const months = [
@@ -80,25 +74,28 @@ export default function FinishBooking(props) {
           <div className="text-l text-gray-800 mb-4 font-thin">
             {
               <>
-                {displayMonth(props.checkInDate.getMonth())}
-                {console.log(props.checkInDate.getMonth())}
-                {" " + props.checkInDate.getDate()}
-                {" - " + props.checkOutDate.getDate()}
-                {", " + props.checkOutDate.getFullYear()}
+                {displayMonth(checkInDate.getMonth())}
+                {" " + checkInDate.getDate()}
+                {", " + checkInDate.getFullYear()}
+                <div />
+                {displayMonth(checkOutDate.getMonth())}
+                {"  " + checkOutDate.getDate()}
+                {", " + checkOutDate.getFullYear()}
               </>
             }
           </div>
           <h4 className="text-l font-semibold text-gray-800 mb-1">Guests</h4>
-          <div className="text-l text-gray-800 mb-4 font-thin">
-            {props.guests}
-          </div>
+          <div className="text-l text-gray-800 mb-4 font-thin">{guests}</div>
           <div className="w-full h-0.5 bg-gray-200"></div>
           <div className=" flex justify-between mt-4">
             <h1 className="text-l font-semibold text-gray-800 w-1/2">
               Total (ISK)
             </h1>
             <h1 className="text-l font-semibold text-gray-800 w-1/2 text-right">
-              98.000kr
+              {new Intl.NumberFormat("is-IS", {
+                style: "currency",
+                currency: "ISK",
+              }).format(price)}
             </h1>
           </div>
         </div>

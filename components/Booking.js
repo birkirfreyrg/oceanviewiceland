@@ -6,11 +6,17 @@ import Wrapper from "./Wrapper";
 import Info from "./Info";
 import axios from "axios";
 import { mongooseConnect } from "../lib/mongoose";
+import { useContext } from "react";
+import { MyContext } from "../contexts/MyContext";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Booking(props) {
+  const { sharedData, updateSharedData } = useContext(MyContext);
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [guests, setGuests] = useState(null);
+  const router = useRouter();
 
   const guestOptions = [
     { value: "1", label: "1 Guest" },
@@ -31,32 +37,15 @@ export default function Booking(props) {
     setGuests(selectedOption);
   };
 
-  async function ConfirmDates(checkInDate, checkOutDate, numberOfGuests) {
-    console.log(checkInDate);
-    console.log(checkOutDate);
-    console.log(numberOfGuests);
-
-    props.setGuests(numberOfGuests);
-    props.setCheckInDate(checkInDate);
-    props.setCheckOutDate(checkOutDate);
-
-    /*
-    try {
-      const response = await axios.post("/api/adddates", {
-        checkInDate,
-        checkOutDate,
-        numberOfGuests,
-      });
-      if (response.data.url) {
-        window.location = response.data.url;
-      } else {
-        // If there's no URL in the response, manually navigate to "/"
-        window.location.href = "/book";
-      }
-    } catch (error) {
-      console.error("Error:", error);
+  function ConfirmDates(checkInDate, checkOutDate, numberOfGuests) {
+    if (checkInDate > checkOutDate) {
+      throw new Error(
+        "Check-in Date can't be sooner then the Check-out date! Please try again."
+      );
     }
-    */
+    const bookingData = [checkInDate, checkOutDate, numberOfGuests];
+
+    updateSharedData(bookingData);
   }
 
   return (
@@ -99,14 +88,16 @@ export default function Booking(props) {
               placeholder="Select guests"
             />
           </div>
-          <button
-            onClick={() =>
-              ConfirmDates(checkInDate, checkOutDate, guests.value)
-            }
-            className="bg-black text-white px-4 py-2 rounded font-custom"
-          >
-            Book Now
-          </button>
+          <Link href="/book" passHref legacyBehavior>
+            <button
+              onClick={() =>
+                ConfirmDates(checkInDate, checkOutDate, guests.value)
+              }
+              className="bg-black text-white px-4 py-2 rounded font-custom"
+            >
+              Book Now
+            </button>
+          </Link>
         </div>
       </div>
     </Wrapper>
