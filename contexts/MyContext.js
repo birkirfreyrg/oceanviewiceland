@@ -1,4 +1,3 @@
-// MyContext.js
 import { createContext, useState, useEffect } from "react";
 
 const MyContext = createContext();

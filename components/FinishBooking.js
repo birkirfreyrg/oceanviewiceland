@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "./Layout";
 import Wrapper from "./Wrapper";
 import axios from "axios";
 import { useContext } from "react";
@@ -16,7 +15,7 @@ export default function FinishBooking() {
   const checkInDate = sharedData[0];
   const checkOutDate = sharedData[1];
   const guests = sharedData[2];
-  const time_difference = checkOutDate.getTime() - checkInDate.getTime();
+  const time_difference = checkOutDate?.getTime() - checkInDate?.getTime();
   const days_difference = time_difference / (1000 * 60 * 60 * 24);
   const price = days_difference * 16900;
 
@@ -75,12 +74,12 @@ export default function FinishBooking() {
             {
               <>
                 {displayMonth(checkInDate.getMonth())}
-                {" " + checkInDate.getDate()}
-                {", " + checkInDate.getFullYear()}
+                {" " + checkInDate?.getDate()}
+                {", " + checkInDate?.getFullYear()}
                 <div />
-                {displayMonth(checkOutDate.getMonth())}
-                {"  " + checkOutDate.getDate()}
-                {", " + checkOutDate.getFullYear()}
+                {displayMonth(checkOutDate?.getMonth())}
+                {"  " + checkOutDate?.getDate()}
+                {", " + checkOutDate?.getFullYear()}
               </>
             }
           </div>

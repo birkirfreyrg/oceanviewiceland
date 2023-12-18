@@ -4,19 +4,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import Wrapper from "./Wrapper";
 import Info from "./Info";
-import axios from "axios";
-import { mongooseConnect } from "../lib/mongoose";
 import { useContext } from "react";
 import { MyContext } from "../contexts/MyContext";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function Booking(props) {
   const { sharedData, updateSharedData } = useContext(MyContext);
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [guests, setGuests] = useState(null);
-  const router = useRouter();
 
   const guestOptions = [
     { value: "1", label: "1 Guest" },
