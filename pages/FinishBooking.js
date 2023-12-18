@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Wrapper from "./Wrapper";
+import Wrapper from "../components/Wrapper";
 import axios from "axios";
 import { useContext } from "react";
 import { MyContext } from "../contexts/MyContext";
@@ -20,6 +20,13 @@ export default function FinishBooking() {
   const price = days_difference * 16900;
 
   async function goToPayment() {
+    console.log(name);
+    console.log(email);
+    console.log(city);
+    console.log(postalCode);
+    console.log(streetAddress);
+    console.log(country);
+    console.log(sharedData);
     const response = await axios.post("/api/checkout", {
       name,
       email,
@@ -27,7 +34,7 @@ export default function FinishBooking() {
       postalCode,
       streetAddress,
       country,
-      cartProducts,
+      sharedData,
     });
     if (response.data.url) {
       window.location = response.data.url;

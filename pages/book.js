@@ -1,4 +1,4 @@
-import FinishBooking from "../components/FinishBooking";
+import FinishBooking from "./FinishBooking";
 import { useContext } from "react";
 import { MyContext } from "../contexts/MyContext";
 
