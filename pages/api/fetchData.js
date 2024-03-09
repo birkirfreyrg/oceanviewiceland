@@ -1,6 +1,6 @@
 import { mongooseConnect } from "../../lib/mongoose"; // Import the MongoDB connection
 import { Dates } from "../../models/Dates"; // Import the schema/model
-
+/*
 export default async (req, res) => {
   try {
     const data = await Dates.find(); // Fetch data from the database
@@ -10,3 +10,4 @@ export default async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+*/

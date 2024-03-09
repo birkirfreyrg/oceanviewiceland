@@ -1,6 +1,7 @@
 import React from "react";
 import Socials from "./Socials";
 import Wrapper from "./Wrapper";
+import Link from "next/link";
 
 export default function Nav() {
   return (
@@ -8,8 +9,7 @@ export default function Nav() {
       <Wrapper>
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-black font-thin text-2xl">
-            {" "}
-            <a href="/">Ocean View Suite</a>
+            <Link href="/">Ocean View Suite</Link>
           </h1>
           <Socials />
         </div>

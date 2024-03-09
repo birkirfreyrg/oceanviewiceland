@@ -1,10 +1,14 @@
+import Image from "next/image";
+
 export default function PhotoBox() {
   return (
     <div className="flex mt-2 gap-1">
       {/* Large Photo (50% width) */}
       <div className="w-1/2 h-auto ">
-        <img
-          src="../images/sitting_area.webp"
+        <Image
+          width={500}
+          height={500}
+          src="/images/sitting_area.webp"
           alt="Large Photo"
           className="w-full h-full rounded-l-lg"
         />
@@ -13,15 +17,19 @@ export default function PhotoBox() {
       {/* Small Photos (50% width) */}
       <div className="w-1/4 h-full flex flex-col gap-1">
         <div className="w-full h-full">
-          <img
-            src="../images/table.webp"
+          <Image
+            width={500}
+            height={500}
+            src="/images/table.webp"
             alt="Small Photo 1"
             className="w-full h-full"
           />
         </div>
         <div className="w-full h-full">
-          <img
-            src="../images/sofa.webp"
+          <Image
+            width={500}
+            height={500}
+            src="/images/sofa.webp"
             alt="Small Photo 2"
             className="w-full h-full"
           />
@@ -29,15 +37,19 @@ export default function PhotoBox() {
       </div>
       <div className="w-1/4 h-full flex flex-col gap-1">
         <div className="w-full h-full">
-          <img
-            src="../images/candles.webp"
+          <Image
+            width={500}
+            height={500}
+            src="/images/candles.webp"
             alt="Small Photo 3"
             className="w-full h-full rounded-tr-lg"
           />
         </div>
         <div className="w-full h-full">
-          <img
-            src="../images/large_area.webp"
+          <Image
+            width={500}
+            height={500}
+            src="/images/large_area.webp"
             alt="Small Photo 4"
             className="w-full h-full rounded-br-lg"
           />

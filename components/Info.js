@@ -57,7 +57,7 @@ export default function Info() {
       </div>
       <hr className="border-0 h-0.5 w-11/12 bg-gray-200 my-2" />
       <div className="mt-2">
-        <h1 className="text-xl font-bold mb-1 ">About this space</h1>{" "}
+        <h1 className="text-xl font-bold mb-1 ">About this space</h1>
         <p>
           Renting this place means becoming a part of the inspiring story that
           Elín and Ljósbrá have crafted. They discovered an old fishing house,
@@ -72,19 +72,19 @@ export default function Info() {
         <p className="mt-1">
           The Apartment comes with a fully equipped kitchen, dining area and
           seating area with stunning ocean view. The apartment has a home gym
-          area. The apartment's previous origins as a gym reflect Elin and
-          Ljosbra's commitment to fitness and well-being. This provides an added
-          incentive for renters who prioritize their health. You can enjoy the
-          convenience of maintaining your exercise routine while being immersed
-          in the tranquil ocean views, creating a holistic experience for both
-          mind and body.
+          area. The apartments previous origins as a gym reflect Elin and
+          Ljosbra&apos;s commitment to fitness and well-being. This provides an
+          added incentive for renters who prioritize their health. You can enjoy
+          the convenience of maintaining your exercise routine while being
+          immersed in the tranquil ocean views, creating a holistic experience
+          for both mind and body.
         </p>
         <h2 className="text-md font-bold mt-1">Guest access</h2>
         <p className="mt-1">
           Having the place all to yourself is a truly unmatched experience.
           Imagine stepping into this stunning apartment, surrounded by
-          breathtaking ocean views, and knowing that it's exclusively yours to
-          enjoy. It has its own entrance with a key box for easy check-in and
+          breathtaking ocean views, and knowing that it&apos;s exclusively yours
+          to enjoy. It has its own entrance with a key box for easy check-in and
           check-out.
         </p>
         <h2 className="text-md font-bold mt-1">Other things to note</h2>
