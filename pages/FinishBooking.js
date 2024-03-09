@@ -27,7 +27,7 @@ export default function FinishBooking() {
     console.log(streetAddress);
     console.log(country);
     console.log(sharedData);
-    const response = await axios.post("/api/checkout", {
+    /*const response = await axios.post("/api/checkout", {
       name,
       email,
       city,
@@ -38,7 +38,7 @@ export default function FinishBooking() {
     });
     if (response.data.url) {
       window.location = response.data.url;
-    }
+    }*/
   }
   function displayMonth(monthNumber) {
     monthNumber = monthNumber + 1;
