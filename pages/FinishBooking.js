@@ -27,6 +27,7 @@ export default function FinishBooking() {
     console.log(streetAddress);
     console.log(country);
     console.log(sharedData);
+    // Commented out database action for vercel deployment.
     /*const response = await axios.post("/api/checkout", {
       name,
       email,
