@@ -4,12 +4,11 @@ const MyContext = createContext();
 
 const MyContextProvider = ({ children }) => {
   const [sharedData, setSharedData] = useState(() => {
-    // Initialize shared data from local storage or a default value
     if (typeof window !== "undefined") {
-      return JSON.parse(localStorage.getItem("sharedData")) || "Default Data";
-    } else {
-      return "Default Data";
+      const localData = localStorage.getItem("sharedData");
+      return localData ? JSON.parse(localData) : [new Date(), new Date(), "0"];
     }
+    return [new Date(), new Date(), "0"]; // Default value or handle differently if needed
   });
 
   const updateSharedData = (newData) => {

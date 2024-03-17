@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Wrapper from "../components/Wrapper";
-import axios from "axios";
 import { useContext } from "react";
 import { MyContext } from "../contexts/MyContext";
 
@@ -12,13 +11,42 @@ export default function FinishBooking() {
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
   const { sharedData } = useContext(MyContext);
-  const checkInDate = sharedData[0];
-  const checkOutDate = sharedData[1];
-  const guests = sharedData[2];
-  const time_difference = checkOutDate?.getTime() - checkInDate?.getTime();
-  const days_difference = time_difference / (1000 * 60 * 60 * 24);
-  const price = days_difference * 16900;
+  const [checkInMonth, setCheckInMonth] = useState("Loading...");
+  const [checkInDay, setCheckInDay] = useState("Loading...");
+  const [checkInYear, setCheckInYear] = useState("Loading...");
+  const [checkOutMonth, setCheckOutMonth] = useState("Loading...");
+  const [checkOutDay, setCheckOutDay] = useState("Loading...");
+  const [checkOutYear, setCheckOutYear] = useState("Loading...");
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [guests, setGuests] = useState("Loading...");
 
+  useEffect(() => {
+    if (
+      sharedData &&
+      sharedData[0] &&
+      sharedData[1] &&
+      sharedData[2] &&
+      typeof sharedData === "object" &&
+      sharedData !== null
+    ) {
+      setGuests(sharedData[2]);
+      setCheckInDate(sharedData[0]);
+      setCheckOutDate(sharedData[1]);
+    }
+  }, [sharedData]);
+
+  useEffect(() => {
+    if (typeof checkInDate === "object") {
+      setCheckInMonth(checkInDate.getMonth());
+      setCheckInDay(checkInDate.getDate());
+      setCheckInYear(checkInDate.getFullYear());
+
+      setCheckOutMonth(checkOutDate.getMonth());
+      setCheckOutDay(checkOutDate.getDate());
+      setCheckOutYear(checkOutDate.getFullYear());
+    }
+  }, [checkInDate, checkOutDate]);
   async function goToPayment() {
     console.log(name);
     console.log(email);
@@ -27,8 +55,9 @@ export default function FinishBooking() {
     console.log(streetAddress);
     console.log(country);
     console.log(sharedData);
+    /*
     // Commented out database action for vercel deployment.
-    /*const response = await axios.post("/api/checkout", {
+    const response = await axios.post("/api/checkout", {
       name,
       email,
       city,
@@ -41,6 +70,7 @@ export default function FinishBooking() {
       window.location = response.data.url;
     }*/
   }
+
   function displayMonth(monthNumber) {
     monthNumber = monthNumber + 1;
     const months = [
@@ -58,13 +88,25 @@ export default function FinishBooking() {
       "Dec",
     ];
 
-    // Check if the input monthNumber is within a valid range (1 to 12)
     if (monthNumber >= 1 && monthNumber <= 12) {
-      // Subtract 1 from monthNumber to access the correct index in the array
       return months[monthNumber - 1];
     } else {
       return "Invalid Month";
     }
+  }
+  function calcPrice() {
+    let price = 0;
+
+    if (typeof checkInDate === "object" && sharedData !== null) {
+      const time_difference = checkOutDate?.getTime() - checkInDate?.getTime();
+      const days_difference = time_difference / (1000 * 60 * 60 * 24);
+      price = days_difference * 16900;
+    } else {
+      console.error("checkInDate is not a valid Date object.");
+      price = 99999999;
+    }
+
+    return price;
   }
 
   return (
@@ -81,13 +123,13 @@ export default function FinishBooking() {
           <div className="text-l text-gray-800 mb-4 font-thin">
             {
               <>
-                {displayMonth(checkInDate.getMonth())}
-                {" " + checkInDate?.getDate()}
-                {", " + checkInDate?.getFullYear()}
+                {displayMonth(checkInMonth)}
+                {" " + checkInDay}
+                {", " + checkInYear}
                 <div />
-                {displayMonth(checkOutDate?.getMonth())}
-                {"  " + checkOutDate?.getDate()}
-                {", " + checkOutDate?.getFullYear()}
+                {displayMonth(checkOutMonth)}
+                {"  " + checkOutDay}
+                {", " + checkOutYear}
               </>
             }
           </div>
@@ -102,7 +144,7 @@ export default function FinishBooking() {
               {new Intl.NumberFormat("is-IS", {
                 style: "currency",
                 currency: "ISK",
-              }).format(price)}
+              }).format(calcPrice())}
             </h1>
           </div>
         </div>

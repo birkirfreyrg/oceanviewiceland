@@ -42,6 +42,7 @@ export default function Booking(props) {
     const bookingData = [checkInDate, checkOutDate, numberOfGuests];
 
     updateSharedData(bookingData);
+    console.log("update: " + sharedData);
   }
 
   return (
